@@ -1,4 +1,5 @@
 import 'package:chatty/const/colorConsr.dart';
+import 'package:chatty/presentaion/screens/logIn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -13,7 +14,7 @@ class RegisterScreen extends StatefulWidget {
   String? username;
   String? email;
   String? password;
-
+static String id = 'RegisterScreen';
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
@@ -24,6 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isLoading = false;
 
   final _formKey = GlobalKey<FormState>();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         isLoading = true ;
                         setState(() {});
                         UserCredential user = await userRegister();
-                        Navigator.of(context).pushNamed('loginScreen');
+                        Navigator.of(context).pushNamed(LogIn.id);
                         print(user.user!.uid);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {

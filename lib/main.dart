@@ -1,3 +1,8 @@
+import 'package:chatty/presentaion/screens/chat_page.dart';
+import 'package:chatty/presentaion/screens/login_page.dart';
+import 'package:chatty/presentaion/screens/resgister_page.dart';
+import 'package:chatty/presentaion/screens/test.dart';
+import 'package:chatty/presentaion/widgets/FirebaseAuth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -39,19 +44,15 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: FirebaseAuth.instance.currentUser == null ? LogIn() : HomeScreen(),
+       initialRoute: LogIn.id,
       routes: {
-      'register' : (context){
-        return RegisterScreen(
+      //   LoginPage.id: (context) => LoginPage(),
+      //   RegisterPage.id: (context) => RegisterPage(),
+      //  ChatPage.id : (context) => ChatPage(),
+       LogIn.id : (context) => LogIn(),
+       RegisterScreen.id : (context) => RegisterScreen(),
+       HomeScreen.id:(context) => HomeScreen(),
 
-        ) ;
-      },
-        'homeScreen' : (context){
-          return HomeScreen() ;
-        },
-        'loginScreen' : (context){
-          return LogIn() ;
-        },
       },
     );
   }
