@@ -1,17 +1,18 @@
-import 'package:chatty/const/colorConsr.dart';
+
 import 'package:chatty/presentaion/screens/logIn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../const/constants.dart';
 import '../../data/services/authentication.dart';
 import '../widgets/FirebaseAuth.dart';
-import '../widgets/showSnackBar.dart';
+import '../../helper/showSnackBar.dart';
 import '../widgets/textFormField.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({super.key, this.password, this.email, this.username});
-  String? username;
+ // RegisterScreen( this.password, this.email, this.username);
+  String? userName;
   String? email;
   String? password;
 static String id = 'RegisterScreen';
@@ -32,15 +33,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return ModalProgressHUD(
       inAsyncCall: isLoading,
       child: Scaffold(
-        backgroundColor: MyColor.kPrimaryColor,
+        backgroundColor:kPrimaryColor,
         body: Form(
           key: _formKey,
           child: ListView(children: [
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SizedBox(
+              const SizedBox(
                 height: 150,
               ),
-              Text(
+              const Text(
                 'Chatty',
                 style: TextStyle(
                   fontFamily: 'Pacifico',
@@ -49,15 +50,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               CusteMTextFormField(
                 onTab: () {},
-                onChange: (value) {
-                  var username = value!;
-                },
-                prefixIcon: Icon(Icons.account_box),
+                // onChange: (value) {
+                //   userName = value;
+                // },
+                prefixIcon: const Icon(Icons.account_box),
                 lableText: 'Enter Name',
                 obsecureText: false,
               ),
@@ -66,7 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onChange: (value) {
                   email = value!;
                 },
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: const Icon(Icons.email),
                 lableText: 'Enter Email',
                 obsecureText: false,
               ),
@@ -75,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onChange: (value) {
                   password = value!;
                 },
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: const Icon(Icons.lock),
                 lableText: 'Enter Password',
                 obsecureText: true,
               ),
@@ -88,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         isLoading = true ;
                         setState(() {});
                         UserCredential user = await userRegister();
-                        Navigator.of(context).pushNamed(LogIn.id);
+                        Navigator.of(context).pushNamed(LogIn.id );
                         print(user.user!.uid);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
