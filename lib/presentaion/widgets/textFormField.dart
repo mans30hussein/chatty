@@ -17,14 +17,19 @@ class CusteMTextFormField extends StatelessWidget {
   final Icon? prefixIcon;
   Function(String)? onChange;
 
-  String? _errorMessage(String str){
-    switch(lableText){
-      case 'Enter Name' : return 'Name is Empty' ;
-      case 'Enter Email' : return 'Email is Empty' ;
-      case 'Enter Password' : return 'password is Empty' ;
-
+  String? _errorMessage(String str) {
+    switch (lableText) {
+      case 'Enter Name':
+        return 'Name is Empty';
+      case 'Enter Email':
+        return 'Email is Empty';
+      case 'Enter Password':
+        return 'password is Empty';
+      case 'search':
+        return 'Search is Empty';
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,34 +39,34 @@ class CusteMTextFormField extends StatelessWidget {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         validator: (value) {
-          if(value!.isEmpty){
-            return _errorMessage(lableText!) ;
+          if (value!.isEmpty) {
+            return _errorMessage(lableText!);
           }
         },
         onSaved: onClick,
         onChanged: onChange,
-        obscureText:lableText == 'Enter Password' ? true : false ,
+        obscureText: lableText == 'Enter Password' ? true : false,
         keyboardType: TextInputType.name,
-        cursorColor: Colors.white,
+        cursorColor: Colors.black,
         style: TextStyle(
-          color: Colors.white,
+          color: Colors.black,
           fontSize: 18,
         ),
         onTap: onTab,
         decoration: InputDecoration(
           prefixIcon: prefixIcon,
-          prefixIconColor: Colors.white,
+          prefixIconColor: Colors.black,
 
           labelText: lableText,
           labelStyle: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 16,
           ),
           //filled: true,
           //fillColor: Colors.grey.shade400,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.white,
+              color: Colors.black,
             ),
             borderRadius: BorderRadius.circular(20),
           ),

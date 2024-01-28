@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //package:chatty/models/messagesModel.dart'.
 import 'package:chatty/models/messagesModel.dart';
-import '../../const/colorConsr.dart';
+import '../../const/constants.dart';
 
 class CustomChat extends StatelessWidget {
   CustomChat({
@@ -25,7 +25,7 @@ class CustomChat extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
         decoration: const BoxDecoration(
-            color: MyColor.kPrimaryColor,
+            color:kPrimaryColor,
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(40),
               topRight: Radius.circular(40),
@@ -61,7 +61,7 @@ class CustomChatFriend extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
         decoration: const BoxDecoration(
-            color: MyColor.kPrimaryColor,
+            color: kPrimaryColor,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(40),
               topRight: Radius.circular(40),

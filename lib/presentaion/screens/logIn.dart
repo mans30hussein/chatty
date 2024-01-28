@@ -1,44 +1,40 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:chatty/const/colorConsr.dart';
 import 'package:chatty/models/messagesModel.dart';
-import 'package:chatty/presentaion/screens/homeScreen.dart';
+import 'package:chatty/presentaion/screens/chatScreen.dart';
 import 'package:chatty/presentaion/screens/register.dart';
-import 'package:chatty/presentaion/screens/test.dart';
+import 'package:chatty/presentaion/widgets/loginBotton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../../const/constants.dart';
 import '../widgets/FirebaseAuth.dart';
-import '../widgets/showSnackBar.dart';
+import '../../helper/showSnackBar.dart';
 import '../widgets/textFormField.dart';
 
 class LogIn extends StatefulWidget {
-  LogIn({super.key});
- static String id = 'LogIn';
+  LogIn({super.key, });
+  static String id = 'LogIn';
+ 
   @override
-  
   State<LogIn> createState() => _LogInState();
 }
 
 class _LogInState extends State<LogIn> {
-
    String? password;
-    String? email ;
-   bool isLoading = false ;
-   final GlobalKey<FormState>  _formKey = GlobalKey();
-    // / var messageId = Message();
-   
+  String? email;
+  bool isLoading = false;
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  // / var messageId = Message();
 
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
-
       inAsyncCall: isLoading,
       child: Scaffold(
-
-        backgroundColor: MyColor.kPrimaryColor,
+        backgroundColor: kPrimaryColor,
         body: Form(
-          key:_formKey,
+          key: _formKey,
           child: ListView(children: [
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               const SizedBox(
@@ -79,26 +75,8 @@ class _LogInState extends State<LogIn> {
                 child: GestureDetector(
                   onTap: () async {
                     await checkLogin(context);
-
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    width: double.infinity,
-                    height: 60,
-                    child: const Center(
-                      child: Text(
-                        'LogIn',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 28,
-                          fontFamily: 'pacifico',
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: LoginBotton(),
                 ),
               ),
               Padding(
@@ -135,43 +113,26 @@ class _LogInState extends State<LogIn> {
     );
   }
 
-
   Future<void> checkLogin(BuildContext context) async {
-     if(_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
+      isLoading = true;
+      setState(() {});
       try {
-        isLoading = true ;
-        setState(() {
-    
-        });
-        UserCredential credential = await userLogin();
-          // Navigator.push(
-          //   context,
-            // MaterialPageRoute(
-            //     builder: (_) => HomeScreen(
-            //           // email: email!,
-            //         )));
+        await userLogin();
         Navigator.of(context).pushNamed(HomeScreen.id , arguments: email );
-        print(credential.user!.uid);
-      } on FirebaseAuthException catch (e) {
-        print(e.message.toString());
-        if (e.code == 'user-not-found') {
-          showSnackBar(context,'No user found for that email');
-        } else if (e.code == 'wrong-password') {
-          showSnackBar(context,'Wrong password provided for that user.');
-    
+      } on FirebaseAuthException catch (ex) {
+        if (ex.code == 'user-not-found') {
+          showSnackBar(context, 'user not found');
+        } else if (ex.code == 'wrong-password') {
+          showSnackBar(context, 'wrong password');
         }
-      } catch (e) {
-        print('An error occurred: $e}');
+      } catch (ex) {
+        print(ex);
+        showSnackBar(context, 'there was an error');
       }
-      isLoading = false ;
-      setState(() {
-    
-      });
-      //showSnackBar(context , 'Login Success !');
-    }
+
+      isLoading = false;
+      setState(() {});
+    } else {}
   }
-
-
-
-
 }
